@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="content">
+        <div class="welcome">
+            
+            <div class="welcometext">
+                <h1><%= data.hawkercentre %></h1>                
+            </div>
+
+        </div>
+      
+
+        <div class="productContainer">
+            
+            <div class="stall-container">
+                <div class="stall-maindata">
+                    <h2><%= data.name %></h2>                    
+                    <p>Unit: <%= data.stallnumber %></p>
+                    <img src="<%= data.img %>" alt="stallimage" />
+                </div>
+                
+                <div class="stall-fooditems">
+                    <table>
+                        <tr>
+                            <th>Food Items</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                        </tr>
+                        <% data.foodItems.forEach( (item, index) => { %>
+
+                        
+                        <tr>
+                            <td><%= item.foodName %></td>
+                            <td><%= item.description %></td>
+                            <td>$<%= item.price %></td>
+                        </tr>
+
+                        <% }) %>
+                    </table>
+
+                    <div class="stall-tags">
+                        <div class="tags">Tags: </div>
+                        <ul>
+                            <% data.tags.forEach((item) => { %>
+                                <li><%= item %></li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+                <div id="editbutton"><a href="<%= data.id %>/edit">EDIT</a></div>
+            </div>            
+            
+        </div>
+    </div>  
+    
+    
+</body>
+</html>

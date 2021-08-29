@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="content">
+        <div class="welcome">
+            
+            <div class="welcometext">
+                <h1>Welcome to the Hawkerpedia</h1>                
+            </div>
+
+        </div>
+      
+
+        <div class="productContainer">
+            <div class="navbar-mini">
+                <ul>
+                    <li class="show-all">Show All</li>
+                    <li>B</li>
+                    <li>C</li>
+
+
+                </ul>
+            </div>
+
+            <div class="index-hawkerList">
+                <h2>List of Hawker Centres</h2>
+                <ul>
+                    <% data.forEach( (item) => { %>
+                        <li><a href="/hawkercentre?name=<%= item %>"><%= item %></a></li>
+                    <% }) %>
+                </ul>                       
+            </div>            
+            
+        </div>
+    </div>  
+    
+    
+</body>
+</html>

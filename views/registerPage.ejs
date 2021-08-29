@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="content">
+        <div class="welcome">
+            
+            <div class="welcometext">
+                <h1>Registration</h1>                
+            </div>
+
+        </div>
+      
+
+        <div class="productContainer">
+            
+            <form method="POST" action="/">
+                <div> 
+                    <label for="username">Username:</label>
+                    <input id="username" name="username" type="email" /><br><br>
+                
+                    <label for="password">Password:</label>
+                    <input id="password" name="password" type="password" /><br><br>
+
+                    <label for="code">Code:</label>
+                    <input id="code" name="code" type="text" placeholder="Enter code by referrer" /><br><br>
+                    
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            
+  
+        </div>
+    </div>  
+    
+    
+</body>
+</html>

@@ -1,0 +1,363 @@
+body {
+    background-color: #f2f9fd;
+}
+
+header, #login-welcome {
+    background-color: #d9d9dd;
+}
+
+header > div {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    min-width: 353px;
+    margin: 0 auto;    
+    font-size: 20px;    
+}
+
+header div ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: #5a4563;
+    /* border: 1px solid white; */
+    margin: 0px;
+    padding: 0px;
+}
+
+header div ul li {
+    list-style-type: none;
+    padding: 0.5rem;
+}
+
+header a {
+    text-decoration: none;
+    color:#5a4563;
+}
+
+.logo {        
+    color: #1b2071;    
+    font-weight: bold;   
+    margin: 0px 0px 0px 5px;    
+    font-size: 25px;    
+}
+
+.logo a {
+    text-decoration: none;
+    color: #1b2071 !important;
+}
+
+.logo a:hover {
+    color: rgb(0, 195, 255);
+}
+
+.navbar-links {
+    display: block;     
+}
+
+.navbar-links:hover {    
+    color: black !important;
+}
+
+.navbar-links:hover a {
+    color: #f8f053 !important;
+}
+
+#login-welcome {
+    display: flex;
+    justify-content: flex-end;  
+    width: 80%;
+    margin: 0px auto;
+    min-width: 353px;    
+    font-size: 18px;
+    color: #b14964;    
+    
+      
+    
+}
+
+#login-welcome > div {
+    margin-right: 10px;
+}
+
+.content { 
+    display: block;
+    margin: 5px auto;    
+}
+
+.welcome {
+    width: 80%;
+    min-width: 353px;
+    min-height: 200px;
+    margin: 0 auto;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: lightblue url("/images/welcomeImage.png") no-repeat;
+    background-size: cover;    
+}
+
+.welcometext {
+    background: rgba(0, 0, 0, 0.6)   
+}
+
+.welcometext h1 {
+    color: white;    
+    padding: 0px 10px;        
+}
+
+.productContainer, .showpage-container {    
+    background-color: #d0ced0;
+    width: 80%;    
+    min-width: 353px;
+    margin: 20px auto;  
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-mini ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    color: black;  
+    margin: 0px;
+    padding: 0px;
+    font-size: 20px;
+}
+
+.navbar-mini ul li {
+    cursor: pointer;
+    list-style-type: none;
+    padding: 10px 0 10px 0px;    
+}
+
+.navbar-mini ul li.show-all {
+    display: none;
+}
+
+.navbar-mini ul li:hover {
+    color: #b14964;
+}
+
+.index-hawkerList h2 {
+    margin-left: 20px;
+}
+
+.index-hawkerList ul li {
+    margin-bottom: 10px;
+    font-size: 18px;    
+}
+
+.index-hawkerList ul li a {
+    text-decoration: none;
+    color:#5a4563
+}
+
+.index-hawkerList ul li a:hover {
+    color: yellow;
+}
+
+
+.stall-container {
+    margin: 0px 10px;
+    font-size: 20px;    
+}
+
+.stall-maindata > h2, .stall-maindata > p {
+    color: #1b2071
+}
+
+.stall-maindata > img {
+    width: 20%;
+    min-width: 135px;
+    max-width: 305px;
+}
+
+.stall-fooditems > table {
+    margin: 10px 0px;
+   
+}
+
+.stall-fooditems table tr th {
+    color:#5a4563;
+}
+
+.stall-fooditems table tr td, 
+.stall-fooditems table tr th {
+    padding: 15px;
+    
+}
+
+.stall-container > #editbutton {
+    color: #f5e1de;
+    margin: 20px 0px;
+   
+}
+
+.stall-tags > .tags {
+    color:#5a4563;
+    font-weight: bold;
+}
+
+.stall-container > #editbutton > a {
+    background-color: rgb(11, 77, 55);
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.stall-container > #editbutton > a:hover {
+    opacity: 0.7;
+}
+
+form {
+    width: 80%;
+    margin: 20px auto;
+    display: block;    
+}
+
+form > div {
+    margin: 20px 0px;
+}
+
+form > div > label {
+    color: #1b2071;    
+}
+
+form > div > label, form > div > input {
+    font-size: 20px;
+    margin-bottom: 10px;    
+}
+
+form > div > label {
+    width: 30%;  
+}  
+
+form > div > input {
+    width: 68%;
+}
+
+form > button {
+    background-color: #b14964;
+    color: #f5e1de;
+    font-size: 15px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+form > button:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+form > button.addFieldsButton {
+    background-color: rgb(11, 77, 55);
+}
+
+form > h2 {
+    color:powderblue
+}
+
+form > .form-image {    
+    max-width: 200px;
+    
+}
+
+.form-image > img {
+    width: 100%;
+    border-radius: 15px;
+    border: 2px solid #b14964;
+}
+
+form > div > p {
+    color: #1b2071;    
+    font-size: 20px;
+}
+
+.alert {
+    width: 80%;
+    min-width: 353px;
+    margin: 5px auto;    
+    font-size: 15px;    
+}
+
+.alert-create {
+    padding: 8px;
+    background-color: rgb(182, 182, 240);
+    color: black;
+}
+
+.alert-update {
+    background-color: rgb(144, 240, 192);
+    color: black;
+}
+
+.alert-delete {
+    background-color: rgb(242, 186, 154);
+    color: black;
+}
+
+.shoppingcart-welcome {    
+    justify-content: center
+}
+
+.showpage-container table {
+    width: 90%;
+    margin: 10px auto;
+    border: 1px solid black;
+}
+
+.showpage-container table tr {
+    text-align: center;    
+}
+
+.showpage-container table tr td {
+    padding: 10px;   
+}
+
+@media only screen and (min-width: 800px) {
+    
+    .image img {
+        width: 100%;        
+        max-width: 250px;        
+        max-height: 176px;       
+    }
+
+    .navbar-mini ul li.show-all {
+        display: block;
+    }
+
+    .productItems .square {
+        max-width: 250px;        
+        margin: 10px 10px;
+        background-color: white;
+    }
+
+    .showpage-container {
+        flex-direction: row;   
+        flex-wrap: wrap;
+        align-items: center;          
+    }
+
+    .showpage-image {
+        width: 30%;            
+        margin: 20px 30px;
+         
+    }
+    
+    .showpage-image img {
+        width: 100%;
+        border-radius: 20px;
+    }
+    
+    .showpage-details {    
+        width: 60%;  
+        color: black;
+        font-size: 20px;        
+    }
+
+
+}
