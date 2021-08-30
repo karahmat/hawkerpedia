@@ -27,7 +27,16 @@
                         <label for="stall-img">Image: </label>
                         <input id="stall-img" name="img" value="<%= data.img %>" placeholder="enter url" /><br>                    
 
-                        <label for="tags">Tags: </label><input id="tags" name="tags" placeholder="separate tags by comma" /><br>
+                        <% let tagList = "";
+                            data.tags.forEach( (item, index) => {
+                                if (index < data.tags.length-1) {
+                                    tagList = tagList + item + ",";
+                                } else {
+                                    tagList = tagList + item;
+                                }
+                            }) %>
+
+                        <label for="tags">Tags: </label><input id="tags" name="tags" placeholder="separate tags by comma" value="<%= tagList %>" /><br>
 
                         <h3>Food Items</h3>
                         <% data.foodItems.forEach( (item, index) => { %>                        

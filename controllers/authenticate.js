@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -31,7 +32,7 @@ const handleErrors = (err) => {
 
 const maxAge = 3 * 24 * 60 * 60; //in seconds
 const createToken = (id) => {
-    return jwt.sign({ id }, "azman secret", {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: maxAge,
     });
 };

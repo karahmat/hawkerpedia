@@ -1,7 +1,13 @@
+//DEPENDENCIES
 const express = require('express');
 const router3 = express.Router();
 const HawkerStall = require('../models/hawkercentreAndStalls');
 const { requireAuth } = require('../middleware/authMiddleware');
+const methodOverride = require('method-override');
+
+//Middleware
+router3.use(express.urlencoded({ extended: true }));
+router3.use(methodOverride("_method"));
 
 router3.get('/', async (req, res) => {
         
@@ -22,10 +28,15 @@ router3.get('/:id/edit', requireAuth, async (req,res) => {
 });
 
 router3.put('/:id', async (req,res) => {
+    let tagsArray = [];
+    if (req.body.tags !== undefined) {
+        tagsArray = req.body.tags.split(",");
+    }
+
     const tempObj = {
         name: req.body.name,
         img: req.body.img,
-        tags: req.body.tags.split(",")
+        tags: tagsArray
     };
     tempObj["foodItems"] = [];
     for (let i=0; i<req.body.foodName.length; i++) {

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
@@ -8,7 +9,7 @@ const requireAuth = (req, res, next) => {
   
     //check json web token exists and is valid
     if (token) {
-      jwt.verify(token, "azman secret", (err, decodedToken) => {
+      jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
         if (err) {
           console.log(err.message);
           res.redirect('/login');
@@ -28,7 +29,7 @@ const checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
 
     if (token) {
-        jwt.verify(token, "azman secret", async (err, decodedToken) => {
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if (err) {
               console.log(err.message);
               res.locals.user = null; //if user does not exist, then user property is null
