@@ -7,12 +7,7 @@ router2.get('/', async (req, res) => {
     res.render('index', {data: result});
 });
 
-router2.get('/login', async (req,res) => {
-    res.render('loginPage');
-})
 
-router2.get('/register', async (req,res) => {
-    res.render('registerPage');
-})
+
 
 module.exports = router2;

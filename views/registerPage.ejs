@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
     <%- include('./partials/head.ejs') %>
 <body>
@@ -17,16 +16,19 @@
 
         <div class="productContainer">
             
-            <form method="POST" action="/">
+            <form action="/register">
                 <div> 
                     <label for="username">Username:</label>
-                    <input id="username" name="username" type="email" /><br><br>
+                    <input id="username" name="username" type="text" required placeholder="Enter a valid email" /><br><br>
+                    <div class="username_error"></div>
                 
                     <label for="password">Password:</label>
-                    <input id="password" name="password" type="password" /><br><br>
+                    <input id="password" name="password" type="password" required placeholder="Minimum 8 characters" /><br><br>
+                    <div class="password_error"></div>
 
                     <label for="code">Code:</label>
                     <input id="code" name="code" type="text" placeholder="Enter code by referrer" /><br><br>
+                    <div class="code_error"></div>
                     
                 </div>
                 <button type="submit">Register</button>
@@ -35,7 +37,49 @@
   
         </div>
     </div>  
-    
+    <script>
+        const form = document.querySelector('form');
+        const usernameError = document.querySelector('.username_error');
+        const passwordError = document.querySelector('.password_error');
+        const codeError = document.querySelector('.code_error');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // reset errors
+            usernameError.textContent = "";
+            passwordError.textContent = "";
+            codeError.textContent = "";
+
+            //get the values
+            const username = form.username.value;
+            const password = form.password.value;
+            const code = form.code.value;
+
+            console.log(username, password, code);
+            
+            try {
+                const res = await fetch('/register', {
+                    method: 'POST',
+                    body: JSON.stringify({username, password, code}),
+                    headers: {'Content-Type': 'application/json'}
+                });
+                const data = await res.json();
+                if (data.errors) {
+                    usernameError.textContent = data.errors.username;
+                    passwordError.textContent = data.errors.password;
+                    codeError.textContent = data.errors.code;
+                }
+                if (data.user) {
+                    location.assign('/'); //redirect to homepage
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+
+        })
+    </script>
     
 </body>
 </html>

@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
     <%- include('./partials/head.ejs') %>
 <body>
@@ -52,7 +51,9 @@
                         </ul>
                     </div>
                 </div>
+                <% if (user) { %>
                 <div id="editbutton"><a href="<%= data.id %>/edit">EDIT</a></div>
+                <% } %>
             </div>            
             
         </div>

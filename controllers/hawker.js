@@ -1,12 +1,11 @@
 const express = require('express');
 const router3 = express.Router();
 const HawkerStall = require('../models/hawkercentreAndStalls');
+const { requireAuth } = require('../middleware/authMiddleware');
 
 router3.get('/', async (req, res) => {
-    
-    //res.send(`hawker centre name is ${req.query.name}`);    
+        
     const result = await HawkerStall.find({hawkercentre: req.query.name}, 'stallnumber');    
-    //res.json(result);
     res.render('hawkercentre', {
         hawkercentre: req.query.name,
         data: result});
@@ -17,7 +16,7 @@ router3.get('/:id', async (req,res) => {
     res.render('hawkershow', {data: result[0]});
 });
 
-router3.get('/:id/edit', async (req,res) => {
+router3.get('/:id/edit', requireAuth, async (req,res) => {
     const result = await HawkerStall.find({_id: req.params.id});
     res.render('hawkeredit', {data: result[0]});
 });
