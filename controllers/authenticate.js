@@ -6,8 +6,9 @@ const User = require('../models/user');
 
 //function to handle errors
 const handleErrors = (err) => {
-    console.log(err.message, err.code);
-    let errors = { username: '', password: '' };
+    console.log("error message here is called");
+    console.log(err.message);
+    let errors = { username: '', password: '', access: '' };
 
     //incorrect username
     if (err.message === "incorrect username") {
@@ -20,6 +21,7 @@ const handleErrors = (err) => {
         return errors;
     }
 
+    
     //validation errors
     if (err.message.includes('user validation failed')) {
         Object.values(err.errors).forEach(item => {
@@ -28,6 +30,29 @@ const handleErrors = (err) => {
     }
 
     return errors;
+}
+
+//check whether referrer ID exists
+const checkReferrer = async (code) => {
+    
+    try {
+        const isExistingBureaucrat = await User.exists({ _id: code });
+        
+        let access;
+        
+        if (code === process.env.ADMIN_CODE) {
+            access = "administrator";
+        } else if (isExistingBureaucrat) {
+            access = "bureaucrat";
+        } else if (isExistingBureaucrat === false) {
+            access = "";
+        }
+                
+        return access;
+    } 
+    catch (err) {
+        console.log(err);
+    }
 }
 
 const maxAge = 3 * 24 * 60 * 60; //in seconds
@@ -44,24 +69,19 @@ router.get('/register', async (req,res) => {
 });
 
 router.post('/register', async (req,res) => {
-    const { username, password, code } = req.body;
-        
-    let access = "";
+    const { username, password, code } = req.body;    
     
-    if (code === "vossstr17") {
-        access = "administrator";
-    } else {
-        access = "bureaucrat";
-    }
 
-    try {
+    try {  
+        const access = await checkReferrer(code);
+        console.log("access here is " + access);
         const user = await User.create({username, password, code, access});
         const token = createToken(user._id);
-        //send cookie to browser, but it cannot be accessed by clicking document.cookie
+        //send cookie to browser, but it cannot be accessed by clicking document.cookie due to httpOnly: true
         res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000}); //maxAge in milliseconds here
-        res.status(201).json( { user: user._id });
+        res.status(201).json( { user: user._id });   
     }
-    catch (err) {
+    catch (err) {                    
         const errors = handleErrors(err);
         res.status(400).json({errors});
     }

@@ -21,7 +21,9 @@ const userSchema = new Schema({
         required: [true, 'Please enter referrer code']
     },
     access: {
-        type: String        
+        type: String,
+        minlength: [5, 'Referrer does not exist'],
+        required: [true, 'Referrer does not exist']        
     }    
 });
 

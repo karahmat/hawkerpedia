@@ -29,6 +29,7 @@
                     <label for="code">Code:</label>
                     <input id="code" name="code" type="text" placeholder="Enter code by referrer" /><br><br>
                     <div class="code_error"></div>
+                    <div class="access_error"></div>
                     
                 </div>
                 <button type="submit">Register</button>
@@ -42,6 +43,7 @@
         const usernameError = document.querySelector('.username_error');
         const passwordError = document.querySelector('.password_error');
         const codeError = document.querySelector('.code_error');
+        const accessError = document.querySelector('.access_error');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -50,13 +52,13 @@
             usernameError.textContent = "";
             passwordError.textContent = "";
             codeError.textContent = "";
+            accessError.textContent = "";
 
             //get the values
             const username = form.username.value;
             const password = form.password.value;
             const code = form.code.value;
-
-            console.log(username, password, code);
+            
             
             try {
                 const res = await fetch('/register', {
@@ -69,6 +71,7 @@
                     usernameError.textContent = data.errors.username;
                     passwordError.textContent = data.errors.password;
                     codeError.textContent = data.errors.code;
+                    accessError.textContent = data.errors.access;
                 }
                 if (data.user) {
                     location.assign('/'); //redirect to homepage
