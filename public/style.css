@@ -64,6 +64,7 @@ header a {
 }
 
 #login-welcome {
+    background-color: #f2f9fd;
     display: flex;
     justify-content: flex-end;  
     width: 80%;
@@ -71,14 +72,21 @@ header a {
     min-width: 353px;    
     font-size: 18px;
     color: #b14964;    
-    
-      
-    
+       
 }
 
 #login-welcome > div {
-    margin-right: 10px;
+    margin-right: 10px;    
 }
+
+#login-welcome > div > a {
+    text-decoration: none;
+}
+
+#login-welcome > div > a:hover {
+    color: yellow;
+}
+
 
 .content { 
     display: block;
@@ -212,6 +220,10 @@ header a {
     opacity: 0.7;
 }
 
+.stall-editdata > .hidden-input {
+    visibility: hidden;
+}
+
 form {
     width: 80%;
     margin: 20px auto;
@@ -300,22 +312,9 @@ form > div > p {
     color: black;
 }
 
-.shoppingcart-welcome {    
-    justify-content: center
-}
-
-.showpage-container table {
-    width: 90%;
-    margin: 10px auto;
-    border: 1px solid black;
-}
-
-.showpage-container table tr {
-    text-align: center;    
-}
-
-.showpage-container table tr td {
-    padding: 10px;   
+.username_error, .password_error, .code_error, .access_error {
+    color: #b14964;
+    font-weight: bold;
 }
 
 @media only screen and (min-width: 800px) {

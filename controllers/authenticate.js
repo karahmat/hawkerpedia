@@ -3,16 +3,22 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const { requireAuth } = require('../middleware/authMiddleware');
 
 //function to handle errors
 const handleErrors = (err) => {
-    console.log("error message here is called");
+    console.log("handleErrors function is called");
     console.log(err.message);
     let errors = { username: '', password: '', access: '' };
 
     //incorrect username
     if (err.message === "incorrect username") {
         errors.username = "That username is not registered";
+    }
+
+    //incorrect password
+    if (err.message === "incorrect password") {
+        errors.password = "That username and/or password is incorrect";
     }
 
     //duplicate error code 
@@ -37,10 +43,11 @@ const checkReferrer = async (code) => {
     
     try {
         const isExistingBureaucrat = await User.exists({ _id: code });
+        //const isExistingBureaucrat = false;
         
         let access;
         
-        if (code === process.env.ADMIN_CODE) {
+        if (code == process.env.ADMIN_CODE) {
             access = "administrator";
         } else if (isExistingBureaucrat) {
             access = "bureaucrat";
@@ -70,11 +77,11 @@ router.get('/register', async (req,res) => {
 
 router.post('/register', async (req,res) => {
     const { username, password, code } = req.body;    
-    
+    console.log(code);
 
     try {  
         const access = await checkReferrer(code);
-        console.log("access here is " + access);
+        
         const user = await User.create({username, password, code, access});
         const token = createToken(user._id);
         //send cookie to browser, but it cannot be accessed by clicking document.cookie due to httpOnly: true
@@ -113,6 +120,9 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
+router.get('/users/:id', requireAuth, (req,res) => {
+    res.render('userpage');
+});
 
 module.exports = router;
 

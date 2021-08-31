@@ -19,7 +19,10 @@
                 <form method="POST" action="/hawkercentre/<%= data.id %>?_method=PUT">
                 
                     <div class="stall-editdata">
-                        <p>Unit No: <%= data.stallnumber %></p>
+                        <label for="stallnumber">Unit No:</label>
+                        <input id="stallnumber" name="stallnumber" value="<%= data.stallnumber %>" readonly /><br>
+                        <input class="hidden-input" name="userId" value="<%= user._id %>" readonly />
+                        <input class="hidden-input" name="hawkercentre" value="<%= data.hawkercentre %>" readonly /><br>
 
                         <label for="stall-name">Name:</label>
                         <input id="stall-name" name="name" value="<%= data.name %>" /><br>                                    
@@ -51,10 +54,10 @@
                         const lengthFoodItems = data.foodItems.length;
                         for (let i=lengthFoodItems; i<lengthFoodItems+3; i++) { %>
                                 
-                        <label for="foodName">Name: </label><input id="foodName" type="text" name="foodName"><br />
-                        <label for="description">Description: </label><input id="description" type="text" name="description"><br />
-                        <label for="price">Price: </label><input id="price" type="number" step="0.01" name="price"><br />
-                        <br />
+                            <label for="foodName">Name: </label><input id="foodName" type="text" name="foodName"><br />
+                            <label for="description">Description: </label><input id="description" type="text" name="description"><br />
+                            <label for="price">Price: </label><input id="price" type="number" step="0.01" name="price"><br />
+                            <br />
                         <% } %>
                     
                     </div>

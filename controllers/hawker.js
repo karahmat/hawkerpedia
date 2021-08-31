@@ -2,6 +2,7 @@
 const express = require('express');
 const router3 = express.Router();
 const HawkerStall = require('../models/hawkercentreAndStalls');
+const User = require('../models/user');
 const { requireAuth } = require('../middleware/authMiddleware');
 const methodOverride = require('method-override');
 
@@ -28,6 +29,7 @@ router3.get('/:id/edit', requireAuth, async (req,res) => {
 });
 
 router3.put('/:id', async (req,res) => {
+    
     let tagsArray = [];
     if (req.body.tags !== undefined) {
         tagsArray = req.body.tags.split(",");
@@ -48,8 +50,16 @@ router3.put('/:id', async (req,res) => {
             }
         }
     } 
-    console.log(req.params.id);
+    
+    const editedPost = {
+        hawkercentre: req.body.hawkercentre,
+        stallnumber: req.body.stallnumber,
+        editDate: new Date()
+    };
+    
+
     await HawkerStall.updateOne({_id: req.params.id}, tempObj)
+    await User.updateOne({_id: req.body.userId}, {$push: { editedPosts: editedPost }} )
     res.redirect(`/hawkercentre/${req.params.id}`);
 })
 

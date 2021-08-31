@@ -1,0 +1,58 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="content">
+        <div class="welcome">
+            
+            <div class="welcometext">
+                <h1>User page</h1>                
+            </div>
+
+        </div>
+      
+
+        <div class="productContainer">
+            
+            <div class="stall-container">
+                <div class="stall-maindata">
+                    <h3>User details</h3>
+                    <p><%= user.username %></p>                    
+                    <p>User ID: <%= user._id %></p>
+                    <p>Referrer ID: <%= user.code %></p>
+                </div>
+                
+                <div class="stall-fooditems">
+                    <h3>Edited Posts</h3>
+                    <table>
+                        <tr>
+                            <th>Hawker Centre</th>
+                            <th>No.</th>
+                            <th>Edit History</th>
+                        </tr>
+                        <% 
+                        if (user.editedPosts) {
+                            user.editedPosts.forEach( (item) => { %>
+                            
+                            <tr>
+                                <td><%= item.hawkercentre %></td>
+                                <td><%= item.stallnumber %></td>
+                                <td><%= item.editDate %></td>
+                            </tr>
+
+                        <%  })
+                         } %>
+                    </table>
+                    
+                </div>
+                
+            </div>            
+            
+        </div>
+    </div>  
+    
+    
+</body>
+</html>

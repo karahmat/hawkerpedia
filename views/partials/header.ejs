@@ -15,6 +15,7 @@
 </header>
 <div id="login-welcome">
     <% if (user) { %>
-        <div>Welcome <%= user.username %></div>
+        <div>Welcome <a href="/users/<%= user._id %>"><%= user.username %></a></div>     
+            
     <% } %>
 </div>

@@ -24,7 +24,14 @@ const userSchema = new Schema({
         type: String,
         minlength: [5, 'Referrer does not exist'],
         required: [true, 'Referrer does not exist']        
-    }    
+    },    
+    editedPosts: [ 
+        {   
+            hawkercentre: String,                 
+            stallnumber: String, 
+            editDate: String             
+        } 
+    ]  
 });
 
 //fire a function after doc saved to db
@@ -47,7 +54,8 @@ userSchema.statics.login = async function (username, password) {
     //if we have a user
     if (user) {
         //auth can be true or false
-        const auth = bcrypt.compare(password, user.password);
+        const auth = await bcrypt.compare(password, user.password);
+        
         if (auth) {
             return user;
         }
