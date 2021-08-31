@@ -2,6 +2,7 @@
 const express = require('express');
 const router3 = express.Router();
 const HawkerStall = require('../models/hawkercentreAndStalls');
+const HawkerCentreOnly = require('../models/hawkercentreOnly');
 const User = require('../models/user');
 const { requireAuth } = require('../middleware/authMiddleware');
 const methodOverride = require('method-override');
@@ -11,11 +12,27 @@ router3.use(express.urlencoded({ extended: true }));
 router3.use(methodOverride("_method"));
 
 router3.get('/', async (req, res) => {
+    
+    let searchHawkerCentre;
+
+    if (req.query.name.includes("BLK")) {
+        const tempArray = req.query.name.split(" BLK ");
+        searchHawkerCentre = `BLK ${tempArray[1]} ${tempArray[0]}`;
         
-    const result = await HawkerStall.find({hawkercentre: req.query.name}, 'stallnumber');    
+    } else if (req.query.name.includes("BLKS")) {
+        const tempArray = req.query.name.split(" BLKS ");
+        searchHawkerCentre = `BLKS ${tempArray[1]} ${tempArray[0]}`;        
+    } else {
+        searchHawkerCentre = req.query.name;
+    }    
+
+    const result = await HawkerStall.find({hawkercentre: req.query.name});    
+    const hawkerCentreData = await HawkerCentreOnly.find({name: searchHawkerCentre});    
+
     res.render('hawkercentre', {
         hawkercentre: req.query.name,
-        data: result});
+        data: result,
+        dataHC: hawkerCentreData[0] });
 });
 
 router3.get('/:id', async (req,res) => {

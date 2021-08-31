@@ -14,7 +14,7 @@ const hawkerStallSchema = new Schema(
         },
         stallnumber: {
             type: String, 
-            required: true            
+            required: false            
         },
         grade: String,
         tags: [String],

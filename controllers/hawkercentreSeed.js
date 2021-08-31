@@ -36,7 +36,7 @@ router.get('/', async (req,res) => {
         }
 
         const tempObj = {};
-        tempObj['name'] = responses.data.result.records[i].name_of_centre;
+        tempObj['name'] = responses.data.result.records[i].name_of_centre.toUpperCase();
         tempObj['numberofstalls'] = parseInt(responses.data.result.records[i].no_of_stalls);
         tempObj['address'] = location;
         tempObj['postalcode'] = parseInt(postalCode);

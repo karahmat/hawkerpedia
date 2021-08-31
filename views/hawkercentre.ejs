@@ -16,10 +16,32 @@
 
         <div class="productContainer">
             
-            <div>
+            <div id="hawkercentreInfo">
+                <h2>Details</h2>
+
+                <% if (dataHC) { %>
+                    <p>Address: <%= dataHC.address %></p>
+                    <p>Longitude: <%= dataHC.longitude %></p>
+                    <p>Latitude: <%= dataHC.latitude %></p>
+                    
+                    <iframe src="https://www.onemap.gov.sg/amm/amm.html?mapStyle=Default&zoomLevel=16&marker=latLng:<%= dataHC.latitude %>,<%= dataHC.longitude %>!colour:lightred&popupWidth=200" scrolling="no" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+
+                    <p>Number of Stalls: <%= dataHC.numberofstalls %></p>
+                <% } else { %>
+                    <p>Details of Hawker Centre do not exist</p>
+                    
+                <% } %>
+                
+                <% if (user) {
+                        if (user.access === "administrator") { %>
+                        <div class="hcbutton"><a href="#">Edit Hawker Centre Details</a></div>
+                <%      }
+                    } %>
+
+                <h2>List of Stalls</h2>
                 <ul>
                     <% data.forEach( (item) => { %>
-                        <li><a href="/hawkercentre/<%= item.id %>"><%= item.stallnumber %></a></li>
+                        <li><a href="/hawkercentre/<%= item.id %>"><%= item.name %></a></li>
                     <% }) %>
                 </ul>                       
             </div>            

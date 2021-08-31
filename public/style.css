@@ -114,6 +114,11 @@ header a {
     padding: 0px 10px;        
 }
 
+.welcometext h1 a {
+    text-decoration: none;
+    color: white !important;    
+}
+
 .productContainer, .showpage-container {    
     background-color: #d0ced0;
     width: 80%;    
@@ -125,10 +130,9 @@ header a {
 
 .navbar-mini ul {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    flex-wrap: wrap;    
     color: black;  
-    margin: 0px;
+    margin-left: 10px;
     padding: 0px;
     font-size: 20px;
 }
@@ -136,7 +140,7 @@ header a {
 .navbar-mini ul li {
     cursor: pointer;
     list-style-type: none;
-    padding: 10px 0 10px 0px;    
+    padding: 10px 8px;    
 }
 
 .navbar-mini ul li.show-all {
@@ -165,6 +169,25 @@ header a {
     color: yellow;
 }
 
+#hawkercentreInfo {
+    margin-left: 10px;
+    font-size: 18px;
+} 
+
+#hawkercentreInfo > iframe {
+    width: 95%;
+    max-width: 500px;
+    height: 340px;
+}
+
+
+#hawkercentreInfo > .hcbutton > a {
+    color: white !important;
+    text-decoration: none;
+    padding: 10px;
+    background-color: rgb(11, 77, 55); 
+    border-radius: 10px; 
+}
 
 .stall-container {
     margin: 0px 10px;

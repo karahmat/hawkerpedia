@@ -4,7 +4,19 @@ const HawkerStall = require('../models/hawkercentreAndStalls');
 
 router2.get('/', async (req, res) => {
     const result = await HawkerStall.find().distinct('hawkercentre').exec();
-    res.render('index', {data: result});
+    
+    const firstLetter = [];
+    for ( const element of result ) {
+        if (firstLetter.indexOf(element.charAt(0).toUpperCase()) === -1) {
+            firstLetter.push(element.charAt(0).toUpperCase());
+        }
+    }
+    
+    console.log(firstLetter);
+
+    res.render('index', {
+        data: result,
+        navigation: firstLetter});
 });
 
 
