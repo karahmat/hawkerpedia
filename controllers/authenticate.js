@@ -77,8 +77,7 @@ router.get('/register', async (req,res) => {
 
 router.post('/register', async (req,res) => {
     const { username, password, code } = req.body;    
-    console.log(code);
-
+    
     try {  
         const access = await checkReferrer(code);
         

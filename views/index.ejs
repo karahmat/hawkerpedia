@@ -26,51 +26,25 @@
             </div>
 
             <div class="index-hawkerList">
+                
+                <h2>Nearest Hawker Centres</h2>
+                <ul id="nearestHawkers"></ul>
+                
                 <h2>List of Hawker Centres</h2>
                 <ul id="hawkercentresList">
                     <% data.forEach( (item) => { %>
                         <li class="hawkercentreItem"><a href="/hawkercentre?name=<%= item %>"><%= item %></a></li>
                     <% }) %>
-                </ul>                       
+                </ul>    
+                
+                
+
             </div>            
             
         </div>
     </div>  
     
-    <script>
-        const mininavbar = document.querySelectorAll('.navbarmini-item');
-        const hawkerList = document.querySelectorAll('.hawkercentreItem');
-        const hawkercentresList = document.querySelector('#hawkercentresList');
-        const showAll = document.querySelector('.show-all');
-        //console.log(hawkerList);
-        for (const navLetter of mininavbar ) {
-            navLetter.addEventListener('click', () => {
-                hawkercentresList.innerHTML = '';
-                //console.log(navLetter.textContent);
-                const letter = navLetter.textContent;
-                const listToBeShown = [];
-                for (const hawkerItem of hawkerList) {
-                    if (hawkerItem.textContent.charAt(0) === letter) {
-                        listToBeShown.push(hawkerItem.textContent);
-                    }
-                }
-                listToBeShown.forEach( (item) => {
-                    const listItem  = `<li class="hawkercentreItem"><a href="/hawkercentre?name=${item}">${item}</a></li>`
-                    hawkercentresList.innerHTML += listItem;
-                }); 
-            }) 
-        }
-
-        showAll.addEventListener('click', () => {
-            hawkercentresList.innerHTML = '';
-
-           for (const hawkerItem of hawkerList ) {
-               const eachHawkerCentre = `<li class="hawkercentreItem"><a href="/hawkercentre?name=${hawkerItem.textContent}">${hawkerItem.textContent}</a></li>`
-               hawkercentresList.innerHTML += eachHawkerCentre;
-           }
-        });
-        
-    </script>
+    <script type="text/javascript" src="homepageScript.js"></script>
     
 </body>
 </html>

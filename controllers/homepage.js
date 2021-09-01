@@ -11,8 +11,7 @@ router2.get('/', async (req, res) => {
             firstLetter.push(element.charAt(0).toUpperCase());
         }
     }
-    
-    console.log(firstLetter);
+      
 
     res.render('index', {
         data: result,

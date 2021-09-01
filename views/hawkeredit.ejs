@@ -16,7 +16,7 @@
 
         <div class="productContainer">
             <div class="stall-container">
-                <form method="POST" action="/hawkercentre/<%= data.id %>?_method=PUT">
+                <form method="POST" action="/hawkercentre/<%= data.id %>?_method=PUT" enctype="multipart/form-data">
                 
                     <div class="stall-editdata">
                         <label for="stallnumber">Unit No:</label>
@@ -28,7 +28,7 @@
                         <input id="stall-name" name="name" value="<%= data.name %>" /><br>                                    
                         
                         <label for="stall-img">Image: </label>
-                        <input id="stall-img" name="img" value="<%= data.img %>" placeholder="enter url" /><br>                    
+                        <input id="stall-img" name="img" type="file" accept="image/*" capture="user" placeholder="upload image files" /><br>                    
 
                         <% let tagList = "";
                             data.tags.forEach( (item, index) => {

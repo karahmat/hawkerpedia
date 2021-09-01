@@ -1,16 +1,40 @@
 //DEPENDENCIES
+require('dotenv').config();
 const express = require('express');
 const router3 = express.Router();
+const multer = require('multer');
+const imgur = require('imgur');
+const fs = require('fs');
+const methodOverride = require('method-override');
+
+const { requireAuth } = require('../middleware/authMiddleware');
+
+//Models
 const HawkerStall = require('../models/hawkercentreAndStalls');
 const HawkerCentreOnly = require('../models/hawkercentreOnly');
 const User = require('../models/user');
-const { requireAuth } = require('../middleware/authMiddleware');
-const methodOverride = require('method-override');
+
+
+
+// ==== 
+// set up for multer diskstorage
+// ====
+const diskStorage = multer.diskStorage({
+    destination: "./uploads",
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}_${file.originalname}`);
+    }
+  })
+
+// after you setup multer to choose your disk storage, you can initialize a middleware to use for your routes
+const uploadMiddleware = multer({ storage: diskStorage });
 
 //Middleware
 router3.use(express.urlencoded({ extended: true }));
 router3.use(methodOverride("_method"));
+router3.use(uploadMiddleware.any());
 
+//routes
 router3.get('/', async (req, res) => {
     
     let searchHawkerCentre;
@@ -35,6 +59,12 @@ router3.get('/', async (req, res) => {
         dataHC: hawkerCentreData[0] });
 });
 
+//exposing my hawkercentre coordinates
+router3.get('/coordinates', async (req,res) => {
+    const result = await HawkerCentreOnly.find({}, 'name longitude latitude');
+    res.json(result);
+})
+
 router3.get('/:id', async (req,res) => {
     const result = await HawkerStall.find({_id: req.params.id});
     res.render('hawkershow', {data: result[0]});
@@ -46,17 +76,22 @@ router3.get('/:id/edit', requireAuth, async (req,res) => {
 });
 
 router3.put('/:id', async (req,res) => {
-    
+    // Change this cliend id to your own.
+    const clientId = process.env.IMGUR_ID;
+
+    // Setting
+    imgur.setClientId(clientId);
+
     let tagsArray = [];
     if (req.body.tags !== undefined) {
         tagsArray = req.body.tags.split(",");
     }
 
     const tempObj = {
-        name: req.body.name,
-        img: req.body.img,
+        name: req.body.name,        
         tags: tagsArray
     };
+
     tempObj["foodItems"] = [];
     for (let i=0; i<req.body.foodName.length; i++) {
         if (req.body.foodName[i] !== '') {
@@ -74,10 +109,26 @@ router3.put('/:id', async (req,res) => {
         editDate: new Date()
     };
     
+    const file = req.files[0];
 
-    await HawkerStall.updateOne({_id: req.params.id}, tempObj)
-    await User.updateOne({_id: req.body.userId}, {$push: { editedPosts: editedPost }} )
+    try {
+        const urlImage = await imgur.uploadFile(`./uploads/${file.filename}`);
+        fs.unlinkSync(`./uploads/${file.filename}`);
+        
+        tempObj.img = urlImage.link;
+
+        await HawkerStall.updateOne({_id: req.params.id}, tempObj);
+        await User.updateOne({_id: req.body.userId}, {$push: { editedPosts: editedPost }} );
+
+    } catch(err) {
+        console.log(err);
+
+    }
+    
+    
     res.redirect(`/hawkercentre/${req.params.id}`);
-})
+});
+
+
 
 module.exports = router3;
