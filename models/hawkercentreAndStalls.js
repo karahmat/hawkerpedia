@@ -5,12 +5,12 @@ const hawkerStallSchema = new Schema(
     {
         name: {
             type: String, 
-            required: true
+            required: [true, 'Please enter stall name']
         },
         img: String, 
         hawkercentre: {
             type: String, 
-            required: true
+            required: [true, 'Please enter hawker centre']
         },
         stallnumber: {
             type: String, 
@@ -24,7 +24,8 @@ const hawkerStallSchema = new Schema(
                 price: Number, 
                 description: String
             } 
-        ]  
+        ],
+        lastEditedBy: String  
     }, 
     {
         timestamps: true

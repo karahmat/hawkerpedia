@@ -131,7 +131,7 @@ header a {
 .navbar-mini ul {
     display: flex;
     flex-wrap: wrap;    
-    color: black;  
+    color: #b14964;  
     margin-left: 10px;
     padding: 0px;
     font-size: 20px;
@@ -148,7 +148,7 @@ header a {
 }
 
 .navbar-mini ul li:hover {
-    color: #b14964;
+    color: yellow;
 }
 
 .index-hawkerList h2 {
@@ -199,9 +199,9 @@ header a {
 }
 
 .stall-maindata > img {
-    width: 20%;
-    min-width: 135px;
-    max-width: 305px;
+    width: 50%;
+    min-width: 270px;
+    max-width: 410px;
 }
 
 .stall-fooditems > table {
@@ -243,36 +243,58 @@ header a {
     opacity: 0.7;
 }
 
-.stall-editdata > .hidden-input {
+.stall-container > #deletebutton {
+    display: inline-block;
+    background-color: rgb(101, 18, 12);
+    color: white;
+    font-size: 20px;    
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.stall-container > #deletebutton:hover {
+    opacity: 0.7;
+}
+
+#lastEditedBy {
+    text-align: right;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.hidden-input {
     visibility: hidden;
 }
 
 form {
-    width: 80%;
-    margin: 20px auto;
+    width: 80%;    
     display: block;    
 }
 
 form > div {
     margin: 20px 0px;
+    
 }
 
-form > div > label {
+form > div > label, .usersList > label, .hawkerList > label {
     color: #1b2071;    
-}
-
-form > div > label, form > div > input {
     font-size: 20px;
     margin-bottom: 10px;    
+    width: 30%; 
 }
 
-form > div > label {
-    width: 30%;  
-}  
-
-form > div > input {
-    width: 68%;
+form > div > input, select {
+    font-size: 20px;
+    margin-bottom: 10px;   
+    width: 60%; 
 }
+
+.radiobutton {
+    width: 10px;
+}
+
 
 form > button {
     background-color: #b14964;
@@ -281,6 +303,7 @@ form > button {
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
+    
 }
 
 form > button:hover {
@@ -310,6 +333,19 @@ form > .form-image {
 form > div > p {
     color: #1b2071;    
     font-size: 20px;
+}
+
+#loginContainer, .usersList, .hawkerList, .addHawkerCentreContainer, .addHawkerStall {
+    margin-left: 20px;
+    font-size: 20px;    
+}
+
+.usersList h2, .hawkerList h2 {
+    margin-top: 0px;
+}
+
+.inv {
+    display: none;
 }
 
 .alert {

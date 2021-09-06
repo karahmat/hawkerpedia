@@ -5,10 +5,11 @@
     <%- include('./partials/header.ejs') %>
 
     <div class="content">
+        <div id="hawkerStallID" class="hidden-input"><%= data.id %></div>
         <div class="welcome">
             
             <div class="welcometext">
-                <h1><a href="/hawkercentre/?name=<%= data.hawkercentre %>"><%= data.hawkercentre %></a></h1>                
+                <h1><a id="hawkerCentreName" href="/hawkercentre/?name=<%= data.hawkercentre %>"><%= data.hawkercentre %></a></h1>                
             </div>
 
         </div>
@@ -36,7 +37,7 @@
                         <tr>
                             <td><%= item.foodName %></td>
                             <td><%= item.description %></td>
-                            <td>$<%= item.price %></td>
+                            <td>$<%= item.price.toFixed(2) %></td>
                         </tr>
 
                         <% }) %>
@@ -53,11 +54,39 @@
                 </div>
                 <% if (user) { %>
                 <div id="editbutton"><a href="<%= data.id %>/edit">EDIT</a></div>
+                    <% if (user.access === "administrator") { %>
+                    <div id="deletebutton">DELETE</div>
+                    <% } %>
                 <% } %>
-            </div>            
+                
+                
+            </div>
+            <% if (data.lastEditedBy) { %>
+            <div id="lastEditedBy">Last edited by <%= data.lastEditedBy %> on <%= data.updatedAt %></div>
+            <% } %>
             
         </div>
     </div>  
+
+    <script>
+        const deleteButton = document.querySelector('#deletebutton');
+        deleteButton.addEventListener('click', async () => {
+            const hawkerStallID = document.querySelector('#hawkerStallID').textContent;
+            const hawkerCentreName = document.querySelector('#hawkerCentreName').textContent;
+            console.log(hawkerCentreName);
+
+            try {
+                const res = await fetch(`/hawkercentre/${hawkerStallID}`, {
+                    method: 'DELETE',                    
+                    headers: { 'Content-Type': 'application/json'}
+                });                                
+                location.assign(`/hawkercentre/?name=${hawkerCentreName}`); //redirect to hawkerCentre List          
+            } catch (err) {
+                console.log(err);
+            }
+
+        });
+    </script>
     
     
 </body>

@@ -5,7 +5,8 @@ const showAll = document.querySelector('.show-all');
 
 for (const navLetter of mininavbar ) {
     navLetter.addEventListener('click', () => {
-        hawkercentresList.innerHTML = '';        
+        hawkercentresList.innerHTML = '';
+        
         const letter = navLetter.textContent;
         const listToBeShown = [];
         for (const hawkerItem of hawkerList) {

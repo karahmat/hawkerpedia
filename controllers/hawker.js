@@ -89,7 +89,8 @@ router3.put('/:id', async (req,res) => {
 
     const tempObj = {
         name: req.body.name,        
-        tags: tagsArray
+        tags: tagsArray,
+        lastEditedBy: req.body.username
     };
 
     tempObj["foodItems"] = [];
@@ -109,26 +110,45 @@ router3.put('/:id', async (req,res) => {
         editDate: new Date()
     };
     
-    const file = req.files[0];
+    
 
     try {
-        const urlImage = await imgur.uploadFile(`./uploads/${file.filename}`);
-        fs.unlinkSync(`./uploads/${file.filename}`);
+        if (req.files[0]) {
+            const file = req.files[0];
+            const urlImage = await imgur.uploadFile(`./uploads/${file.filename}`);
+            fs.unlinkSync(`./uploads/${file.filename}`);
+            
+            tempObj.img = urlImage.link;
+        }
         
-        tempObj.img = urlImage.link;
-
         await HawkerStall.updateOne({_id: req.params.id}, tempObj);
         await User.updateOne({_id: req.body.userId}, {$push: { editedPosts: editedPost }} );
+        res.redirect(`/hawkercentre/${req.params.id}`);
 
     } catch(err) {
         console.log(err);
 
     }
     
-    
-    res.redirect(`/hawkercentre/${req.params.id}`);
 });
 
+// DELETE HAWKER STALL REQUEST
+router3.delete('/:id', requireAuth, async (req, res) => {  
+    console.log(req.params.id);
+    
+    try {
+        await HawkerStall.deleteOne({_id: req.params.id});
+        res.send('Document deleted');
+        //redirecting is done on the client side
+    } catch (err) {
+        console.log(err);
+    }
+    
+    
+    //res.send('ok');
+    //after a delete request, it is not advisable to do a redirect
+    
+})
 
 
 module.exports = router3;

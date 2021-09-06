@@ -17,13 +17,14 @@
         <div class="productContainer">
             <div class="stall-container">
                 <form method="POST" action="/hawkercentre/<%= data.id %>?_method=PUT" enctype="multipart/form-data">
-                
+                    <input class="hidden-input" name="userId" value="<%= user._id %>" readonly />
+                    <input class="hidden-input" name="hawkercentre" value="<%= data.hawkercentre %>" readonly /><br>
+                    <input class="hidden-input" name="username" value="<%= user.username %>" readonly />
+
                     <div class="stall-editdata">
                         <label for="stallnumber">Unit No:</label>
                         <input id="stallnumber" name="stallnumber" value="<%= data.stallnumber %>" readonly /><br>
-                        <input class="hidden-input" name="userId" value="<%= user._id %>" readonly />
-                        <input class="hidden-input" name="hawkercentre" value="<%= data.hawkercentre %>" readonly /><br>
-
+                        
                         <label for="stall-name">Name:</label>
                         <input id="stall-name" name="name" value="<%= data.name %>" /><br>                                    
                         

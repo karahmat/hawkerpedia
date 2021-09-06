@@ -3,10 +3,11 @@
         <div class="logo"><a href="/">Hawker<br>Wiki</a></div>           
         <ul>
             <% if (user) { %>
-            <li class="navbar-links" id="logout"><a href="/logout">Log Out</a></li>
                 <% if (user.access === "administrator") { %>
-                    <li class="navbar-links" id="admin"><a href="#">Admin</a></li>
+                    <li class="navbar-links" id="admin"><a href="/admin">Admin</a></li>
                     <% } %>
+            <li class="navbar-links" id="logout"><a href="/logout">Log Out</a></li>
+                
             <% } else { %>                       
             <li class="navbar-links"><a href="/login">Log In</a></li>
             <li class="navbar-links"><a href="/register">Register</a></li>      

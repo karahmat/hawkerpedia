@@ -38,6 +38,7 @@ const homepage = require('./controllers/homepage');
 const hawkercentre = require('./controllers/hawker');
 const hawkercentreOnlySeed = require('./controllers/hawkercentreSeed');
 const authRoutes = require('./controllers/authenticate');
+const adminpage = require('./controllers/admin');
 
 app.use('/hawkerSeed', hawkerSeed);
 app.use('/hawkercentreOnlySeed', hawkercentreOnlySeed);
@@ -46,6 +47,7 @@ app.get('*', checkUser);
 app.use(homepage);
 app.use('/hawkercentre', hawkercentre);
 app.use(authRoutes);
+app.use('/admin', adminpage);
 
 // Listen on port 3000
 app.listen(PORT, () => console.info("Listening on port "+ PORT));
