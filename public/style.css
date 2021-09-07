@@ -1,9 +1,10 @@
 body {
-    background-color: #f2f9fd;
+    background-color: #f2f9fd;    
 }
 
 header, #login-welcome {
     background-color: #d9d9dd;
+    
 }
 
 header > div {
@@ -52,7 +53,8 @@ header a {
 }
 
 .navbar-links {
-    display: block;     
+    display: block;
+    margin-right: 5px;     
 }
 
 .navbar-links:hover {    
@@ -61,6 +63,19 @@ header a {
 
 .navbar-links:hover a {
     color: #f8f053 !important;
+}
+
+.navibutton {    
+    background-color: #5a4563;
+    border-radius: 5px;
+}
+
+.navibutton a {
+    color: #d78fa2;
+}
+
+.navibutton a:hover {
+    opacity: 0.7;
 }
 
 #login-welcome {
@@ -88,6 +103,7 @@ header a {
 }
 
 
+
 .content { 
     display: block;
     margin: 5px auto;    
@@ -96,7 +112,7 @@ header a {
 .welcome {
     width: 80%;
     min-width: 353px;
-    min-height: 200px;
+    min-height: 400px;
     margin: 0 auto;  
     display: flex;
     justify-content: center;
@@ -106,7 +122,8 @@ header a {
 }
 
 .welcometext {
-    background: rgba(0, 0, 0, 0.6)   
+    background: rgba(0, 0, 0, 0.6);
+    text-align: center;
 }
 
 .welcometext h1 {
@@ -119,11 +136,38 @@ header a {
     color: white !important;    
 }
 
-.productContainer, .showpage-container {    
+.introtext {
+    width: 80%;
+    background-color: #5a4563;
+    color: white;
+    min-width: 353px;
+    margin: 5px auto;    
+    font-size: 20px;    
+}
+
+.introtext > h2 {
+    color:#d78fa2;
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 15px;
+    margin-bottom: 0px;        
+}
+
+.introtext > h2 > a {
+    text-decoration: none;
+    color: #d78fa2;
+}
+
+.introtext > p {
+    margin: 15px 10px 0px 20px;       
+    padding-bottom: 20px;
+}
+
+.productContainer {    
     background-color: #d0ced0;
     width: 80%;    
     min-width: 353px;
-    margin: 20px auto;  
+    margin: 10px auto;  
     display: flex;
     flex-direction: column;
 }
@@ -288,7 +332,7 @@ form > div > label, .usersList > label, .hawkerList > label {
 form > div > input, select {
     font-size: 20px;
     margin-bottom: 10px;   
-    width: 60%; 
+    width: 68%; 
 }
 
 .radiobutton {

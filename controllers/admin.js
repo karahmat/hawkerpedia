@@ -52,6 +52,26 @@ router.put('/user/edit/:id', requireAuth, async (req,res) => {
     res.redirect('/admin');
 });
 
+router.post('/hawkercentre/add', requireAuth, async (req,res) => {
+    console.log(req.body);
+    let tempObj = {};
+    tempObj["name"] = req.body.name;
+    tempObj["address"] = req.body.address;
+    tempObj["longitude"] = req.body.longitude;
+    tempObj["latitude"] = req.body.latitude;
+    tempObj["postalcode"] = parseInt(req.body.postalcode)
+    tempObj["numberofstalls"] = req.body.numberofstalls
+
+    try {
+        await HawkerCentreOnly.create(tempObj);
+        res.redirect('/');
+    } catch (err) {
+        console.log(err);
+    }
+
+    
+});
+
 router.post('/hawkerstall/new', requireAuth, async (req,res) => {
 
     console.log(req.body);

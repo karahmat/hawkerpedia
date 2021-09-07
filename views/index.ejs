@@ -9,13 +9,27 @@
             
             <div class="welcometext">
                 <h1>Welcome to the Hawkerpedia</h1>                
-            </div>
+            </div>           
 
         </div>
+
+        <% if (!user) { %>
+        <div class="introtext">
+            <h2><a href="/register">Register Now</a></h2>
+            <p>Join the Hawkerpedia community and populate the data of hawker centres in Singapore!</p>
+        </div>
+        <% } %>
       
 
         <div class="productContainer">
+
+            <div class="index-hawkerList">
+                <h2>Nearest Hawker Centres</h2>
+                <ul id="nearestHawkers"><p>Enable location to obtain the 3 nearest hawker centres</p></ul>
+            </div>
+
             <div class="navbar-mini">
+                
                 <ul>
                     <li class="show-all">Show All</li>
                     <% navigation.forEach( letter => { %>
@@ -25,10 +39,7 @@
                 </ul>
             </div>
 
-            <div class="index-hawkerList">
-                
-                <h2>Nearest Hawker Centres</h2>
-                <ul id="nearestHawkers"></ul>
+            <div class="index-hawkerList">                           
 
                 <h2>List of Hawker Centres</h2>
                 <ul id="hawkercentresList">

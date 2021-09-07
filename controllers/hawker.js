@@ -13,6 +13,7 @@ const { requireAuth } = require('../middleware/authMiddleware');
 const HawkerStall = require('../models/hawkercentreAndStalls');
 const HawkerCentreOnly = require('../models/hawkercentreOnly');
 const User = require('../models/user');
+const { updateMany } = require('../models/user');
 
 
 
@@ -149,6 +150,7 @@ router3.delete('/:id', requireAuth, async (req, res) => {
     //after a delete request, it is not advisable to do a redirect
     
 })
+
 
 
 module.exports = router3;

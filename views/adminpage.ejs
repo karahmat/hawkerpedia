@@ -15,78 +15,19 @@
       
 
         <div class="productContainer">
+        <% if (user.access === "administrator") { %>
             <div class="navbar-mini">
-                <ul>
-                    <li id="naviUser" class="navbarmini-links">Edit User</li>
+                <ul>                    
                     <li id="naviHawker" class="navbarmini-links">Edit Hawker Centre</li>
                     <li id="naviAddHawker" class="navbarmini-links">Add Hawker Centre</li>
                     <li id="naviAddHawkerStall" class="navbarmini-links">Add Hawker Stall</li>
+                    <li id="naviUser" class="navbarmini-links">Edit User</li>
                 </ul>
             </div>
-
-            <div class="usersList">  
-            
-                <h2>Edit User</h2>
-                <label for="users">User: </label>
-                <select id="usersDropDown" name="user">
-                    <option value="">Select....</option>
-                    <% allUsers.forEach( eachUser => { %>
-                        <option value="<%= eachUser._id %>"><%= eachUser.username %></option>
-                    <% }) %>
-                </select>
-
-                <% allUsers.forEach ( (eachUser, index) => { %>
-                <div id="<%= eachUser._id %>" class="inv">
-                    <p>Username: <%= eachUser.username %></p>
-                    <div class="stall-fooditems">
-                        <h3>Edited Posts</h3>
-                        <table>
-                            <tr>
-                                <th>Hawker Centre</th>
-                                <th>No.</th>
-                                <th>Edit History</th>
-                            </tr>
-                            <% 
-                            if (eachUser.editedPosts) {
-                                eachUser.editedPosts.forEach( (item) => { %>
-                                
-                                <tr>
-                                    <td><%= item.hawkercentre %></td>
-                                    <td><%= item.stallnumber %></td>
-                                    <td><%= item.editDate %></td>
-                                </tr>
     
-                            <%  })
-                                } %>
-                        </table>
-                        
-                    </div>
-
-
-                    <p>Access: <%= eachUser.access %> </p>
-                    <p>Change to: </p>
-                    
-                    <form method="POST" action="/admin/user/edit/<%= eachUser._id %>?_method=PUT">
-                        <div>
-                            <input class="radiobutton" id="administrator<%= index %>" type="radio" name="access" value="administrator">
-                            <label for="administrator<%= index %>">Administrator</label><br>                      
-                            <input class="radiobutton" checked id="bureaucrat<%= index %>" type="radio" name="access" value="bureaucrat" >  
-                            <label for="bureaucrat<%= index %>">Bureaucrat</label><br>
-                            <input class="radiobutton" id="guest<%= index %>" type="radio" name="access" value="guest">
-                            <label for="guest<%= index %>">Guest</label><br><br>
-                        </div>
-                        
-                        <button id="editUserButton<%= index %>" type="submit">Edit User</button><br><br>
-                    </form>
-
-                </div>
-                <% }) %>
-                
-                    
-            </div>       
                 
                 
-            <div class="hawkerList inv">
+            <div class="hawkerList">
                 <h2>Edit Hawker Centre</h2>
                 <label for="hawkercentresDropDown">Hawker Centre: </label>
                 <select id="hawkercentresDropDown" name="hawkercentre">
@@ -123,14 +64,18 @@
                 <h2>Add Hawker Centre</h2>
                 <form method="POST" action="/admin/hawkercentre/add">
                     <div>
+                        <label for="nameNew">Name: </label>
+                        <input id="nameNew" type="text" name="name"><br><br>
                         <label for="addressNew">Address: </label>
                         <input id="addressNew" type="text" name="address"><br><br>
+                        <label for="postalcodeNew">Postal Code</label>
+                        <input id="postalcodeNew" type="number" name="postalcode"><br><br>
                         <label for="longitudeNew">Longitude: </label>
-                        <input id="longitudeNew" type="number" name="longitude"><br><br>
+                        <input id="longitudeNew" type="number" name="longitude" step="any"><br><br>
                         <label for="latitudeNew">Latitude: </label>
-                        <input id="latitudeNew" type="number"><br><br>                   
+                        <input id="latitudeNew" type="number" name="latitude" step="any"><br><br>                   
                         <label for="numberofstallsNew">No. of Stalls: </label>
-                        <input id="numberofstallsNew" type="number"><br><br>                   
+                        <input id="numberofstallsNew" type="number" name="numberofstalls"><br><br>                   
                     </div>
 
                     <button id="addHawkerCentreButton" type="submit">Add Hawker Centre</button><br><br>
@@ -176,11 +121,75 @@
                     <button type="submit">Add Stall</button>
                 </form>
             </div>
+
+
+            <div class="usersList inv">  
+            
+                <h2>Edit User</h2>
+                <label for="users">User: </label>
+                <select id="usersDropDown" name="user">
+                    <option value="">Select....</option>
+                    <% allUsers.forEach( eachUser => { %>
+                        <option value="<%= eachUser._id %>"><%= eachUser.username %></option>
+                    <% }) %>
+                </select>
+
+                <% allUsers.forEach ( (eachUser, index) => { %>
+                <div id="<%= eachUser._id %>" class="inv">
+                    <p>Username: <%= eachUser.username %></p>
+                    <div class="stall-fooditems">
+                        <h3>Edited Posts</h3>
+                        <table>
+                            <tr>
+                                <th>Hawker Centre</th>
+                                <th>No.</th>
+                                <th>Edit History</th>
+                            </tr>
+                            <% 
+                            if (eachUser.editedPosts) {
+                                eachUser.editedPosts.forEach( (item) => { %>
+                                
+                                <tr>
+                                    <td><%= item.hawkercentre %></td>
+                                    <td><%= item.stallnumber %></td>
+                                    <td><%= item.editDate %></td>
+                                </tr>
+
+                            <%  })
+                                } %>
+                        </table>
+                        
+                    </div>
+
+
+                    <p>Access: <%= eachUser.access %> </p>
+                    <p>Change to: </p>
+                    
+                    <form method="POST" action="/admin/user/edit/<%= eachUser._id %>?_method=PUT">
+                        <div>
+                            <input class="radiobutton" id="administrator<%= index %>" type="radio" name="access" value="administrator">
+                            <label for="administrator<%= index %>">Administrator</label><br>                      
+                            <input class="radiobutton" checked id="bureaucrat<%= index %>" type="radio" name="access" value="bureaucrat" >  
+                            <label for="bureaucrat<%= index %>">Bureaucrat</label><br>
+                            <input class="radiobutton" id="guest<%= index %>" type="radio" name="access" value="guest">
+                            <label for="guest<%= index %>">Guest</label><br><br>
+                        </div>
+                        
+                        <button id="editUserButton<%= index %>" type="submit">Edit User</button><br><br>
+                    </form>
+
+                </div>
+                <% }) %>
+                
+                    
+            </div>   
                    
 
                 
                        
-            
+        <% } else { %>    
+            <div>You are not an administrator!</div>
+            <% } %>
         </div>
     </div>  
        

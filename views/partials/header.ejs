@@ -1,6 +1,6 @@
 <header>
     <div>
-        <div class="logo"><a href="/">Hawker<br>Wiki</a></div>           
+        <div class="logo"><a href="/">Hawker<br>Pedia</a></div>           
         <ul>
             <% if (user) { %>
                 <% if (user.access === "administrator") { %>
@@ -10,7 +10,7 @@
                 
             <% } else { %>                       
             <li class="navbar-links"><a href="/login">Log In</a></li>
-            <li class="navbar-links"><a href="/register">Register</a></li>      
+            <li class="navibutton"><a href="/register">Register</a></li>      
             <% } %>
             <!-- <li class="navbar-links"><a href="#">Manager</a></li>-->                        
         </ul>
