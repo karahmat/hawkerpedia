@@ -1,34 +1,33 @@
 body {
-    background-color: #f2f9fd;    
+    background-color: #f2f9fd;
+    
 }
 
 header, #login-welcome {
-    background-color: #d9d9dd;
-    
+    background-color: #d9d9dd;  
+    min-width: 350px;  
 }
 
 header > div {
     display: flex;
     justify-content: space-between;
-    width: 80%;
-    min-width: 353px;
+    width: 95%;    
     margin: 0 auto;    
-    font-size: 20px;    
+    font-size: 20px;      
 }
 
 header div ul {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    color: #5a4563;
-    /* border: 1px solid white; */
+    align-items: center; 
+    color: #5a4563;        
     margin: 0px;
     padding: 0px;
 }
 
 header div ul li {
     list-style-type: none;
-    padding: 0.5rem;
+    padding: 0.5rem; 
 }
 
 header a {
@@ -49,7 +48,7 @@ header a {
 }
 
 .logo a:hover {
-    color: rgb(0, 195, 255);
+    color: rgb(0, 195, 255) !important;
 }
 
 .navbar-links {
@@ -420,7 +419,11 @@ form > div > p {
     font-weight: bold;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 500px) {
+    
+    header > div {
+        width: 80%;
+    }
     
     .image img {
         width: 100%;        
@@ -430,35 +433,6 @@ form > div > p {
 
     .navbar-mini ul li.show-all {
         display: block;
-    }
-
-    .productItems .square {
-        max-width: 250px;        
-        margin: 10px 10px;
-        background-color: white;
-    }
-
-    .showpage-container {
-        flex-direction: row;   
-        flex-wrap: wrap;
-        align-items: center;          
-    }
-
-    .showpage-image {
-        width: 30%;            
-        margin: 20px 30px;
-         
-    }
-    
-    .showpage-image img {
-        width: 100%;
-        border-radius: 20px;
-    }
-    
-    .showpage-details {    
-        width: 60%;  
-        color: black;
-        font-size: 20px;        
     }
 
 
