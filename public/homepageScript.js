@@ -57,7 +57,7 @@ const getNearestHawkerCentre = async () => {
         const data = await res.json();
         
         const options = {
-            enableHighAccuracy: false,
+            enableHighAccuracy: true,
             timeout: 5000,
             maximumAge: 0
           };
