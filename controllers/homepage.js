@@ -43,10 +43,12 @@ router2.get('/about', (req,res) => {
 router2.get('/search/:searchValue', async (req,res) => {
     try {
         console.log(req.params.searchValue);
+
         const result = await HawkerStall.find({$or: [
             {'tags': { $regex: req.params.searchValue, $options: 'i'} },
             {'foodItems.foodName': { $regex: req.params.searchValue, $options: 'i'} }            
         ]});        
+
         res.render('searchresultpage', {
             data: result,
             searchitem: req.params.searchValue

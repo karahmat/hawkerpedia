@@ -70,22 +70,25 @@
 
     <script>
         const deleteButton = document.querySelector('#deletebutton');
-        deleteButton.addEventListener('click', async () => {
-            const hawkerStallID = document.querySelector('#hawkerStallID').textContent;
-            const hawkerCentreName = document.querySelector('#hawkerCentreName').textContent;
-            console.log(hawkerCentreName);
 
-            try {
-                const res = await fetch(`/hawkercentre/${hawkerStallID}`, {
-                    method: 'DELETE',                    
-                    headers: { 'Content-Type': 'application/json'}
-                });                                
-                location.assign(`/hawkercentre/?name=${hawkerCentreName}`); //redirect to hawkerCentre List          
-            } catch (err) {
-                console.log(err);
-            }
+        if (deleteButton) {
+            deleteButton.addEventListener('click', async () => {
+                const hawkerStallID = document.querySelector('#hawkerStallID').textContent;
+                const hawkerCentreName = document.querySelector('#hawkerCentreName').textContent;
+                console.log(hawkerCentreName);
 
-        });
+                try {
+                    const res = await fetch(`/hawkercentre/${hawkerStallID}`, {
+                        method: 'DELETE',                    
+                        headers: { 'Content-Type': 'application/json'}
+                    });                                
+                    location.assign(`/hawkercentre/?name=${hawkerCentreName}`); //redirect to hawkerCentre List          
+                } catch (err) {
+                    console.log(err);
+                }
+
+            });
+        }
     </script>
     
     

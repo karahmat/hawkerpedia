@@ -71,7 +71,7 @@ const createToken = (id) => {
 
 
 
-router.get('/register', async (req,res) => {
+router.get('/register', (req,res) => {
     res.render('registerPage');
 });
 
@@ -94,7 +94,7 @@ router.post('/register', async (req,res) => {
     
 });
 
-router.get('/login', async (req,res) => {
+router.get('/login', (req,res) => {
     res.render('loginPage');
 });
 
