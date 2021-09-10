@@ -46,10 +46,16 @@
                         <div>
                             <label for="address<%= index %>">Address: </label>
                             <input id="address<%= index %>" type="text" name="address" value="<%= eachHawkerCentre.address %>"><br><br>
+                            
+                            <label for="postalcode<%= index %>">Postal Code: </label>
+                            <input id="postalcode<%= index %>" type="number" name="postalcode" value="<%= eachHawkerCentre.postalcode %>"><br><br>
+                            
                             <label for="longitude<%= index %>">Longitude: </label>
                             <input id="longitude<%= index %>" type="number" name="longitude" value="<%= eachHawkerCentre.longitude %>"><br><br>
+                            
                             <label for="latitude<%= index %>">Latitude: </label>
                             <input id="latitude<%= index %>" type="number" value="<%= eachHawkerCentre.latitude %>"><br><br>                   
+                            
                             <label for="numberofstalls<%= index %>">No. of Stalls: </label>
                             <input id="numberofstalls<%= index %>" type="number" value="<%= eachHawkerCentre.numberofstalls %>"><br><br>                   
                         </div>

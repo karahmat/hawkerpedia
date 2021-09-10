@@ -72,6 +72,25 @@ router.post('/hawkercentre/add', requireAuth, async (req,res) => {
     
 });
 
+router.put('/hawkercenter/edit/:id', async (req,res) => {
+    console.log(req.body);
+    
+    const tempObj = {
+        address: req.body.address,
+        postalcode: req.body.postalcode, 
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
+        numberofstalls: req.body.numberofstalls
+    }
+
+    try {
+        await HawkerCentreOnly.updateOne({_id: req.params.id}, tempObj);        
+    } catch (err) {
+        console.log(err);
+    }
+
+});
+
 router.post('/hawkerstall/new', requireAuth, async (req,res) => {
 
     console.log(req.body);

@@ -40,8 +40,8 @@ const hawkercentreOnlySeed = require('./controllers/hawkercentreSeed');
 const authRoutes = require('./controllers/authenticate');
 const adminpage = require('./controllers/admin');
 
-app.use('/hawkerSeed', hawkerSeed);
-app.use('/hawkercentreOnlySeed', hawkercentreOnlySeed);
+//app.use('/hawkerSeed', hawkerSeed);
+//app.use('/hawkercentreOnlySeed', hawkercentreOnlySeed);
 
 app.get('*', checkUser);
 app.use(homepage);

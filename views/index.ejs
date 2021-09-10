@@ -8,8 +8,10 @@
         <div class="welcome">
             
             <div class="welcometext">
-                <h1>Welcome to the Hawkerpedia</h1>                
-            </div>           
+                <h1>Hawkerpedia</h1>                
+            </div>
+            
+            <h3 id="welcomeline">A repository of hawker stalls by food lovers in Singapore</h3>
 
         </div>
 
@@ -19,7 +21,17 @@
             <p>Join the Hawkerpedia community and populate the data of hawker centres in Singapore!</p>
         </div>
         <% } %>
-      
+        
+        <div class="searchBar">
+            <form>
+                <div>
+                    <input id="searchItem" type="text" placeholder="What do you like to eat today?" name="searchItem" required />                                   
+                </div>
+                <div class="search_error"></div><br>    
+                <button id="searchButton" type="submit">Search</button>
+
+            </form>
+        </div>
 
         <div class="productContainer">
 

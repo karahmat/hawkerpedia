@@ -2,6 +2,7 @@
     <div>
         <div class="logo"><a href="/">Hawker<br>Pedia</a></div>           
         <ul>
+            <li class="navbar-links"><a href="/about">About</a></li>
             <% if (user) { %>
                 <% if (user.access === "administrator") { %>
                     <li class="navbar-links" id="admin"><a href="/admin">Admin</a></li>

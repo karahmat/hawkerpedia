@@ -124,11 +124,19 @@ const getNearestHawkerCentre = async () => {
 
 getNearestHawkerCentre();
 
-// let count = 0;
+//EVENT LISTENER FOR SEARCH BUTTON
 
-// for (coordinate of coordinates) {
-// let distanceTaxi = distance(redhillLat, redhillLong, coordinate[1], coordinate[0]);
-// if (distanceTaxi <= 1) {
-//     count++;
-// }
-// }
+const searchButton = document.querySelector('#searchButton');
+
+searchButton.addEventListener('click', (e) => {
+    
+    e.preventDefault();
+    const searchValue = document.querySelector('#searchItem').value;
+
+    if (searchValue) {
+        location.assign(`/search/${searchValue}`);        
+    } else {
+        document.querySelector('.search_error').innerText = "Please enter a search parameter";
+    }
+
+});

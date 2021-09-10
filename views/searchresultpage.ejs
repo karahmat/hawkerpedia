@@ -1,0 +1,48 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="content">
+        <div class="welcome">
+            
+            <div class="welcometext">
+                <h1>Search Results</h1>                
+            </div>
+
+        </div>
+      
+
+        <div class="productContainer">
+            
+            <div class="stall-container aboutpage">
+                <h2>Results for "<%= searchitem %>"</h2>
+                <% if (data.length > 0) { %> 
+
+                    <ol>
+                    <% data.forEach( (item) => { %>
+                        
+                        <li>
+                            <a href='/hawkercentre?name=<%= item.hawkercentre %>'><%= item.hawkercentre %></a><br>
+                            <a href='/hawkercentre/<%= item._id %>'><%= item.name %></a><br>
+                            <%= item.stallnumber %>
+                        </li><br><br>
+
+                    <% }) %>
+
+                    </ol>
+                <% } else { %>
+                    <p>No such items found</p>
+                <% } %>
+            
+            </div>
+                
+        </div>
+    </div>  
+
+    
+    
+    
+</body>
+</html>
