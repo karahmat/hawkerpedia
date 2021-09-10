@@ -47,7 +47,7 @@
                         <div class="tags">Tags: </div>
                         <ul>
                             <% data.tags.forEach((item) => { %>
-                                <li><%= item %></li>
+                                <li><a href='/search/<%= item %>'><%= item %></a></li>
                             <% }) %>
                         </ul>
                     </div>
