@@ -1,4 +1,6 @@
 body {
+    width: 100%;
+    margin: 0 auto;
     background-color: #f2f9fd;
     font-family: Georgia, Times, 'Times New Roman', serif;
     
@@ -14,7 +16,7 @@ header > div {
     justify-content: space-between;
     width: 95%;    
     margin: 0 auto;    
-    font-size: 18px;      
+    font-size: 15px;      
 }
 
 header div ul {
