@@ -139,13 +139,13 @@ Form validation was done *both* at the frontend and backend
 
 ### Frontend form validation
 
-Frontend validation was very easily done, as it was just a matter of adding the attributes "required" or "minlength" (for passwords) or type="email" to the <input> tag. If these conditions are not fulfilled, the browser will not allow the form-data to be sent. 
+Frontend validation was very easily done, as it was just a matter of adding the attributes "required" or "minlength" (for passwords) or type="email" to the <input> tag. If these conditions are not met, the browser will not allow the form-data to be sent. 
 
-However, frontend form validation has some limitations. It will not be able to handle "unique" username. I also needed to check whether the referrer ID exists. This is where the backend form validation and error handling is needed. 
+However, frontend form validation has some limitations. It will not be able to handle "unique" username. I also needed to check whether the referrer ID exists. This is where the backend form validation and error handling are needed. 
 
 ### Backend form validation
 
-There are two parts to this: (1) setting the Schema to ensure that any fields that are required triggers off an error message of my liking, if those fields are not filled; (2) defining the error handling function
+There are two parts to this: (1) setting the User Schema to ensure that any required fields triggers off an error message (of my liking), if those fields are not filled; (2) defining the error handling function
 
 1. Setting the Schema: The User schema can be defined as follows:
 
@@ -153,7 +153,7 @@ There are two parts to this: (1) setting the Schema to ensure that any fields th
 const userSchema = new Schema({
     username: {
         type: String, 
-        required: [true, 'Please enter an email'], //if username is not given an error message "Please enter an email" should be sent
+        required: [true, 'Please enter an email'], //if username is not given, an error message "Please enter an email" should be sent
         unique: true, //if the username is not unique, an error code 11000 will be sent out
         lowercase: true,
         validate: [isEmail, 'Please enter a valid email']
@@ -279,4 +279,63 @@ try {
 })
 ```
 
+## Using Imgur as a third-party image storage service
 
+My Hawker Edit form allows users to upload images. However, these images will not be stored in my server, as this will only burden my server. So, I used a third-party image storing service called Imgur. 
+
+Imgur requires you to upload your photo on your local server first. Thereafter, upload the photo from the local server to Imgur. Lastly, I used the fileserver (fs) core library to delete my photo.
+
+The detailed steps are as follows:
+
+1. Install the libraries multer and imgur. (npm install multer imgur)
+
+2. Import the dependencies:
+```javascript
+const multer = require('multer');
+const imgur = require('imgur');
+const fs = require('fs'); //this is a core library, so you do not have to install it
+```
+
+3. Configure your multer at your backend:
+```javascript
+const diskStorage = multer.diskStorage({
+    destination: "./uploads", //the directory where my photos will be stored TEMPORARILY
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}_${file.originalname}`);
+    }
+  })
+
+// after you setup multer to choose your disk storage, you can initialize a middleware to use for your routes
+const uploadMiddleware = multer({ storage: diskStorage });
+```
+
+4. At the frontend, I ensured that my <form> element contains the following attribute  -- enctype="multipart/form-data" -- to deal with files
+
+5. In my PUT hawkercentre edit route, upload the image to Imgur, and delete it from my local server:
+
+```javascript
+// Change this cliend id to your IMGUR own.
+const clientId = process.env.IMGUR_ID;
+
+// Setting
+imgur.setClientId(clientId);
+
+try {
+    if (req.files[0]) {
+        const file = req.files[0];
+        const urlImage = await imgur.uploadFile(`./uploads/${file.filename}`); //upload to Imgur
+        fs.unlinkSync(`./uploads/${file.filename}`); //delete the file
+        
+        tempObj.img = urlImage.link;
+    }
+    
+    await HawkerStall.updateOne({_id: req.params.id}, tempObj);
+    await User.updateOne({_id: req.body.userId}, {$push: { editedPosts: editedPost }} );
+    res.redirect(`/hawkercentre/${req.params.id}`);
+
+} catch(err) {
+    console.log(err);
+
+}
+
+```
