@@ -145,7 +145,7 @@ However, frontend form validation has some limitations. It will not be able to h
 
 ### Backend form validation
 
-There are two parts to this: (1) setting the User Schema to ensure that any required fields triggers off an error message (of my liking), if those fields are not filled; (2) defining the error handling function
+There are two parts to this: (1) setting the User Schema to ensure that any required fields trigger off a customised error message (of my liking), if those fields are not filled; and (2) defining the error handling function
 
 1. Setting the Schema: The User schema can be defined as follows:
 
