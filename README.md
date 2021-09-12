@@ -307,6 +307,7 @@ const diskStorage = multer.diskStorage({
 
 // after you setup multer to choose your disk storage, you can initialize a middleware to use for your routes
 const uploadMiddleware = multer({ storage: diskStorage });
+router3.use(uploadMiddleware.any());
 ```
 
 4. At the frontend, I ensured that my "form" tag contains the following attribute  -- enctype="multipart/form-data" -- to deal with files
