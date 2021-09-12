@@ -5,6 +5,9 @@ const showAll = document.querySelector('.show-all');
 
 for (const navLetter of mininavbar ) {
     navLetter.addEventListener('click', () => {
+        showAll.style.color = "#b14964";
+        mininavbar.forEach( item => item.style.color="#b14964");
+        navLetter.style.color = "blue";
         hawkercentresList.innerHTML = '';
         
         const letter = navLetter.textContent;
@@ -22,6 +25,9 @@ for (const navLetter of mininavbar ) {
 }
 
 showAll.addEventListener('click', () => {
+    mininavbar.forEach( item => item.style.color="#b14964");
+    showAll.style.color = "blue";
+
     hawkercentresList.innerHTML = '';
 
     for (const hawkerItem of hawkerList ) {

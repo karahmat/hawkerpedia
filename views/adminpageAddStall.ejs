@@ -1,0 +1,85 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="content">
+        <div class="welcome notFirstPage">
+            
+            <div class="welcometext">
+                <h1>Admin Page</h1>                
+            </div>
+
+        </div>
+      
+
+        <div class="productContainer">
+        <% if (user.access === "administrator") { %>
+           
+            <%- include('./partials/adminNavi.ejs') %>
+                 
+            <div class="addHawkerStall">
+                <h2>Add Hawker Stall</h2>
+                <form method="POST" action="/admin/hawkerstall/new" enctype="multipart/form-data">
+                    <input class="hidden-input" name="userId" value="<%= user._id %>" readonly />
+                    <div>                        
+                        <label for="hawkercentreNew">Hawker Centre: </label>
+                        <select id="hawkercentreNew" name="hawkercentre">                    
+                            <% allHawkerCentres.forEach( eachHawkerCentre => { %>
+                            <option value="<%= eachHawkerCentre.name %>"><%= eachHawkerCentre.name %></option>
+                            <% }) %>
+                        </select><br>
+
+                        <label for="stallnumberNew">Unit No:</label>
+                        <input id="stallnumberNew" name="stallnumber" required><br>
+                        
+                        <label for="stall-nameNew">Name:</label>
+                        <input id="stall-nameNew" name="name" required><br>                                    
+                        
+                        <label for="stall-imgNew">Image: </label>
+                        <input id="stall-stall-imgNew" name="img" type="file" accept="image/*" capture="user" placeholder="upload image files" /><br>                    
+                        
+                        <label for="tagsNew">Tags: </label>
+                        <input id="tagsNew" name="tags" placeholder="separate tags by comma"><br>
+
+                        <h3>Food Items</h3>
+                        
+                        <% 
+                        for (let i=0; i<4; i++) { %>
+                                
+                            <label for="foodNameNew">Name: </label><input id="foodNameNew" type="text" name="foodName"><br />
+                            <label for="descriptionNew">Description: </label><input id="descriptionNew" type="text" name="description"><br />
+                            <label for="priceNew">Price: </label><input id="priceNew" type="number" step="0.01" name="price"><br /><br /><br />
+                            
+                        <% } %> 
+                    </div>
+                    <button type="submit">Add Stall</button>
+                </form>
+            </div>
+
+                       
+        <% } else { %>    
+            <div>You are not an administrator!</div>
+            <% } %>
+        </div>
+    </div>       
+    <script>
+        //change navigation link to blue
+        document.querySelector('#addStall').style.color = "blue";
+
+        const hawkerCentresDropDown = document.querySelector('#hawkerCentreNew');
+        const hawkerCentreName = "<%= chosenHawkerCentre %>";
+        const userFromServer = "<%= user.access %>";
+        
+        
+        //if name of the hawker centre is provided as a query in the URL, choose the dropdown
+        if (userFromServer === "administrator" && hawkerCentreName) {            
+            //const chosenDropDown = document.querySelector(`[value='${hawkerCentreName.textContent}']`);
+            //chosenDropDown.setAttribute('selected','selected');
+            hawkerCentresDropDown.value = hawkerCentreName;           
+        }
+    
+    </script>
+</body>
+</html>

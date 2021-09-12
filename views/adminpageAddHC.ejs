@@ -1,0 +1,56 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="content">
+        <div class="welcome notFirstPage">
+            
+            <div class="welcometext">
+                <h1>Admin Page</h1>                
+            </div>
+
+        </div>
+      
+
+        <div class="productContainer">
+        <% if (user.access === "administrator") { %>
+           
+            <%- include('./partials/adminNavi.ejs') %>
+                 
+            <div class="addHawkerCentreContainer">
+                <h2>Add Hawker Centre</h2>
+                <form method="POST" action="/admin/hawkercentre/add">
+                    <div>
+                        <label for="nameNew">Name: </label>
+                        <input id="nameNew" type="text" name="name"><br><br>
+                        <label for="addressNew">Address: </label>
+                        <input id="addressNew" type="text" name="address"><br><br>
+                        <label for="postalcodeNew">Postal Code</label>
+                        <input id="postalcodeNew" type="number" name="postalcode"><br><br>
+                        <label for="longitudeNew">Longitude: </label>
+                        <input id="longitudeNew" type="number" name="longitude" step="any"><br><br>
+                        <label for="latitudeNew">Latitude: </label>
+                        <input id="latitudeNew" type="number" name="latitude" step="any"><br><br>                   
+                        <label for="numberofstallsNew">No. of Stalls: </label>
+                        <input id="numberofstallsNew" type="number" name="numberofstalls"><br><br>                   
+                    </div>
+
+                    <button id="addHawkerCentreButton" type="submit">Add Hawker Centre</button><br><br>
+                </form>
+            
+            </div>
+
+                       
+        <% } else { %>    
+            <div>You are not an administrator!</div>
+            <% } %>
+        </div>
+    </div>       
+    <script>
+        document.querySelector('#addHawkerCentre').style.color = "blue";
+    </script>
+    
+</body>
+</html>

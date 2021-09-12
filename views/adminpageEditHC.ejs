@@ -1,0 +1,108 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="content">
+        <div class="welcome notFirstPage">
+            
+            <div class="welcometext">
+                <h1>Admin Page</h1>                
+            </div>
+
+        </div>
+      
+
+        <div class="productContainer">
+        <% if (user.access === "administrator") { %>
+
+            <%- include('./partials/adminNavi.ejs') %>
+                   
+                
+            <div class="hawkerList">
+                <h2>Edit Hawker Centre</h2>
+                <label for="hawkercentresDropDown">Hawker Centre: </label>
+                <select id="hawkercentresDropDown" name="hawkercentre">
+                    <option value="Select">Select....</option>
+                    <% allHawkerCentres.forEach( eachHawkerCentre => { %>
+                    <option value="<%= eachHawkerCentre._id %>"><%= eachHawkerCentre.name %></option>
+                    <% }) %>
+                </select>
+                                
+                <% allHawkerCentres.forEach( (eachHawkerCentre, index) => { %>
+                <div id="<%= eachHawkerCentre._id %>" class="inv">
+                    <p><%= eachHawkerCentre.name %></p>
+
+                    <form method="POST" action="/admin/hawkercentre/edit/<%= eachHawkerCentre._id %>?_method=PUT">
+                        <div>
+                            <label for="address<%= index %>">Address: </label>
+                            <input id="address<%= index %>" type="text" name="address" value="<%= eachHawkerCentre.address %>"><br><br>
+                            
+                            <label for="postalcode<%= index %>">Postal Code: </label>
+                            <input id="postalcode<%= index %>" type="number" name="postalcode" value="<%= eachHawkerCentre.postalcode %>"><br><br>
+                            
+                            <label for="longitude<%= index %>">Longitude: </label>
+                            <input id="longitude<%= index %>" type="number" name="longitude" value="<%= eachHawkerCentre.longitude %>"><br><br>
+                            
+                            <label for="latitude<%= index %>">Latitude: </label>
+                            <input id="latitude<%= index %>" type="number" name="latitude" step="0.0000000000000001" value="<%= eachHawkerCentre.latitude %>"><br><br>                   
+                            
+                            <label for="numberofstalls<%= index %>">No. of Stalls: </label>
+                            <input id="numberofstalls<%= index %>" name="numberofstalls" type="number" value="<%= eachHawkerCentre.numberofstalls %>"><br><br>                   
+                        </div>
+
+                        <button id="editHawkerCentreButton<%= index %>" type="submit">Edit Hawker Centre</button><br><br>
+                    </form>
+                </div>
+                
+                <% }) %>
+            </div>
+               
+                       
+        <% } else { %>    
+            <div>You are not an administrator! <br></div>
+            <% } %>
+        </div>
+    </div>  
+
+    <div id="chosenHawkerCentre" class="hidden-input"><%= chosenHawkerCentre %></div>
+       
+    <script>
+        
+        document.querySelector('#editHawkerCentre').style.color = "blue";
+
+        const hawkercentresDropDown = document.getElementById("hawkercentresDropDown");
+
+        if (hawkercentresDropDown) {
+            hawkercentresDropDown.addEventListener('change', function() {
+                const vis = document.querySelector('.vis');
+                const target = document.getElementById(this.value);
+                if (vis !== null) {
+                    vis.className = 'inv';
+                }
+                if (target !== null) {
+                    target.className = 'vis';
+                }
+                
+            });
+        }
+        
+        
+            const hawkerCentreID = "<%= chosenHawkerCentre %>";
+            const userFromServer = "<%= user.access %>";
+        
+        
+        //if name of the hawker centre is provided as a query in the URL, choose the dropdown
+        if (userFromServer === "administrator" && hawkerCentreID) {            
+            //const chosenDropDown = document.querySelector(`[value='${hawkerCentreName.textContent}']`);
+            //chosenDropDown.setAttribute('selected','selected');
+            const event = new Event('change');            
+            hawkercentresDropDown.value = hawkerCentreID;
+            hawkercentresDropDown.dispatchEvent(event);
+            
+        }
+
+    </script>
+</body>
+</html>

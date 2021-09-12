@@ -122,6 +122,10 @@ header a {
     background-size: cover;    
 }
 
+.notFirstPage {
+    min-height: 80px;
+}
+
 .welcometext {
     background: rgba(0, 0, 0, 0.6);
     text-align: center;
@@ -220,6 +224,19 @@ header a {
     color: yellow;
 }
 
+.navbar-mini ul li a {
+    text-decoration: none;
+    color:#b14964;      
+}
+
+.navbar-mini ul li a:hover {
+    color: yellow;
+}
+
+.navbar-mini ul li a:active {   
+    text-decoration: underline;
+}
+
 .index-hawkerList h2 {
     margin-left: 20px;
 }
@@ -249,6 +266,9 @@ header a {
     height: 340px;
 }
 
+#hawkercentreInfo > .hcbutton {
+    margin-bottom: 20px;    
+}
 
 #hawkercentreInfo > .hcbutton > a {
     color: white !important;
@@ -335,6 +355,7 @@ header a {
 
 .hidden-input {
     visibility: hidden;
+    font-size: 1px;
 }
 
 form {

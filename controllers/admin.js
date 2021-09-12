@@ -32,49 +32,22 @@ const HawkerStall = require('../models/hawkercentreAndStalls');
 const User = require('../models/user');
 
 //Routes
-router.get('/', requireAuth, async (req,res) => {
-    
-    try {
-        const usersData = await User.find();
-        const hawkerCentreData = await HawkerCentreOnly.find();
-        res.render('adminpage', {
-            allUsers: usersData,
-            allHawkerCentres: hawkerCentreData });
+
+router.get('/hawkercentre/edit', requireAuth, async(req,res) => {
+    try {        
+
+        const hawkerCentreData = await HawkerCentreOnly.find();        
+        res.render('adminpageEditHC', {            
+            allHawkerCentres: hawkerCentreData,
+            chosenHawkerCentre: req.query.id });
+
     } catch (err) {
         console.log(err);
     }
-
 });
 
-router.put('/user/edit/:id', requireAuth, async (req,res) => {
-    console.log(req.body.access);
-    const user = await User.updateOne({_id: req.params.id}, {access: req.body.access});
-    res.redirect('/admin');
-});
-
-router.post('/hawkercentre/add', requireAuth, async (req,res) => {
-    console.log(req.body);
-    let tempObj = {};
-    tempObj["name"] = req.body.name;
-    tempObj["address"] = req.body.address;
-    tempObj["longitude"] = req.body.longitude;
-    tempObj["latitude"] = req.body.latitude;
-    tempObj["postalcode"] = parseInt(req.body.postalcode)
-    tempObj["numberofstalls"] = req.body.numberofstalls
-
-    try {
-        await HawkerCentreOnly.create(tempObj);
-        res.redirect('/');
-    } catch (err) {
-        console.log(err);
-    }
-
-    
-});
-
-router.put('/hawkercenter/edit/:id', async (req,res) => {
-    console.log(req.body);
-    
+router.put('/hawkercentre/edit/:id', async (req,res) => {
+            
     const tempObj = {
         address: req.body.address,
         postalcode: req.body.postalcode, 
@@ -84,12 +57,54 @@ router.put('/hawkercenter/edit/:id', async (req,res) => {
     }
 
     try {
-        await HawkerCentreOnly.updateOne({_id: req.params.id}, tempObj);        
+        await HawkerCentreOnly.updateOne({_id: req.params.id}, tempObj);
+        const hawkerCentreName = await HawkerCentreOnly.find({_id: req.params.id}, 'name');            
+        res.redirect(`/hawkercentre/?name=${hawkerCentreName[0].name}`)        
     } catch (err) {
         console.log(err);
     }
 
 });
+
+router.get('/hawkercentre/add', requireAuth, (req,res) => {
+
+    res.render('adminpageAddHC');
+
+});
+
+
+router.post('/hawkercentre/add', requireAuth, async (req,res) => {
+    console.log(req.body);
+    let tempObj = {};
+    tempObj["name"] = req.body.name;
+    tempObj["address"] = req.body.address;
+    tempObj["longitude"] = req.body.longitude;
+    tempObj["latitude"] = req.body.latitude;
+    tempObj["postalcode"] = parseInt(req.body.postalcode);
+    tempObj["numberofstalls"] = req.body.numberofstalls;
+
+    try {
+        await HawkerCentreOnly.create(tempObj);
+        res.redirect('/');
+    } catch (err) {
+        console.log(err);
+    }
+
+});
+
+router.get('/hawkerstall/add', requireAuth, async (req,res) => {
+
+    try {
+        const hawkerCentreData = await HawkerCentreOnly.find();   
+        res.render('adminpageAddStall', {
+            allHawkerCentres: hawkerCentreData,
+            chosenHawkerCentre: req.query.name });
+    } catch (err) {
+        console.log(err);
+    }  
+
+});
+
 
 router.post('/hawkerstall/new', requireAuth, async (req,res) => {
 
@@ -162,10 +177,35 @@ router.post('/hawkerstall/new', requireAuth, async (req,res) => {
         console.log(err);
 
     }
-    
-    
-    
-    
+     
 });
+
+
+router.get('/user/edit', requireAuth, async(req,res) => {
+    
+    try {
+        const usersData = await User.find();        
+        res.render('adminpageEditUser', { 
+            allUsers: usersData,
+            chosenUsernameID: req.query.id });
+    } catch (err) {
+        console.log(err);
+    }
+
+});
+
+router.put('/user/edit/:id', requireAuth, async (req,res) => {
+    //console.log(req.body.access);
+    try {
+        const user = await User.updateOne({_id: req.params.id}, {access: req.body.access});
+        res.redirect(`/admin/user/edit?id=${req.params.id}`);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
+
+
 
 module.exports = router;

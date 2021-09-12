@@ -5,7 +5,7 @@
     <%- include('./partials/header.ejs') %>
 
     <div class="content">
-        <div class="welcome">
+        <div class="welcome notFirstPage">
             
             <div class="welcometext">
                 <h1><%= hawkercentre %></h1>                
@@ -34,7 +34,7 @@
                 
                 <% if (user) {
                         if (user.access === "administrator") { %>
-                        <div class="hcbutton"><a href="/admin">Edit Hawker Centre Details</a></div>
+                        <div class="hcbutton"><a href="/admin/hawkercentre/edit?id=<%= dataHC._id %>">Edit Hawker Centre Details</a></div>
                 <%      }
                     } %>
 
@@ -43,7 +43,14 @@
                     <% data.forEach( (item) => { %>
                         <li><a href="/hawkercentre/<%= item.id %>"><%= item.name %></a></li>
                     <% }) %>
-                </ul>                       
+                </ul>
+                
+                <% if (user) {
+                        if (user.access === "administrator") { %>
+                        <div class="hcbutton"><a href="/admin/hawkerstall/add?name=<%= dataHC.name %>">Add Stall</a></div>
+                <%      }
+                    } %>
+
             </div>            
             
         </div>

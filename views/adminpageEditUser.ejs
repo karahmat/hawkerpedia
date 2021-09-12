@@ -1,0 +1,118 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="content">
+        <div class="welcome notFirstPage">
+            
+            <div class="welcometext">
+                <h1>Admin Page</h1>                
+            </div>
+
+        </div>
+      
+
+        <div class="productContainer">
+        <% if (user.access === "administrator") { %>
+           
+            <%- include('./partials/adminNavi.ejs') %>
+
+            <div class="usersList">  
+            
+                <h2>Edit User</h2>
+                <label for="users">User: </label>
+                <select id="usersDropDown" name="user">
+                    <option value="">Select....</option>
+                    <% allUsers.forEach( eachUser => { %>
+                        <option value="<%= eachUser._id %>"><%= eachUser.username %></option>
+                    <% }) %>
+                </select>
+
+                <% allUsers.forEach ( (eachUser, index) => { %>
+                <div id="<%= eachUser._id %>" class="inv">
+                    <p>Username: <%= eachUser.username %></p>
+                    <div class="stall-fooditems">
+                        <h3>Edited Posts</h3>
+                        <table>
+                            <tr>
+                                <th>Hawker Centre</th>
+                                <th>No.</th>
+                                <th>Edit History</th>
+                            </tr>
+                            <% 
+                            if (eachUser.editedPosts) {
+                                eachUser.editedPosts.forEach( (item) => { %>
+                                
+                                <tr>
+                                    <td><%= item.hawkercentre %></td>
+                                    <td><%= item.stallnumber %></td>
+                                    <td><%= item.editDate %></td>
+                                </tr>
+
+                            <%  })
+                                } %>
+                        </table>
+                        
+                    </div>
+
+
+                    <p>Access: <%= eachUser.access %> </p>
+                    <p>Change to: </p>
+                    
+                    <form method="POST" action="/admin/user/edit/<%= eachUser._id %>?_method=PUT">
+                        <div>
+                            <input class="radiobutton" id="administrator<%= index %>" type="radio" name="access" value="administrator">
+                            <label for="administrator<%= index %>">Administrator</label><br>                      
+                            <input class="radiobutton" checked id="bureaucrat<%= index %>" type="radio" name="access" value="bureaucrat" >  
+                            <label for="bureaucrat<%= index %>">Bureaucrat</label><br>
+                            <input class="radiobutton" id="guest<%= index %>" type="radio" name="access" value="guest">
+                            <label for="guest<%= index %>">Guest</label><br><br>
+                        </div>
+                        
+                        <button id="editUserButton<%= index %>" type="submit">Edit User</button><br><br>
+                    </form>
+
+                </div>
+                <% }) %>
+                
+                    
+            </div>            
+            
+
+                       
+        <% } else { %>    
+            <div>You are not an administrator!</div>
+            <% } %>
+        </div>
+    </div>       
+    
+    <script>
+
+        document.querySelector('#editUser').style.color = "blue"; 
+
+        const usersDropDown = document.querySelector('#usersDropDown');
+        usersDropDown.addEventListener('change', function() {
+            const vis = document.querySelector('.vis');
+            const target = document.getElementById(this.value);
+            if (vis !== null) {
+                vis.className = 'inv';
+            }
+            if (target !== null) {
+                target.className = 'vis';
+            }
+            
+        });
+
+        const usernameID = "<%= chosenUsernameID %>";
+
+        if (usernameID) {
+            usersDropDown.value = usernameID
+            const event = new Event('change');                 
+            usersDropDown.dispatchEvent(event);
+        }
+
+    </script>
+</body>
+</html>
