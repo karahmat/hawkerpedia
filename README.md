@@ -38,7 +38,7 @@ There was also some 'cleaning' up of data to be done, as some of the names of th
 
 ## User Authentication
 
-JSON Web Token (JWT) was used for user authentication. I installed the jsonwebtoken library. I also installed the cookieparser library to make it easier for me to deal with cookies. 
+JSON Web Token (JWT) was used for user authentication. I installed the jsonwebtoken library and the cookieparser library to make it easier for me to deal with cookies. I chose JWT, instead of sessions, as I did not want the server's memory to be burdened with users' data. (What if there are 1000000 users logging in to my website simultaneously.) 
 
 This is how JWT works:
 
@@ -141,7 +141,7 @@ Form validation was done *both* at the frontend and backend
 
 Frontend validation was very easily done, as it was just a matter of adding the attributes "required" or "minlength" (for passwords) or type="email" to the <input> tag. If these conditions are not met, the browser will not allow the form-data to be sent. 
 
-However, frontend form validation has some limitations. It will not be able to handle "unique" username. I also needed to check whether the referrer ID exists. This is where the backend form validation and error handling are needed. 
+However, frontend form validation has some limitations. It will not be able to handle "unique" username. I also needed to check whether the referrer ID exists. This is where the backend form validation and error handling come in handy. 
 
 ### Backend form validation
 
