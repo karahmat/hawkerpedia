@@ -309,7 +309,7 @@ const diskStorage = multer.diskStorage({
 const uploadMiddleware = multer({ storage: diskStorage });
 ```
 
-4. At the frontend, I ensured that my "<form>" element contains the following attribute  -- enctype="multipart/form-data" -- to deal with files
+4. At the frontend, I ensured that my "form" tag contains the following attribute  -- enctype="multipart/form-data" -- to deal with files
 
 5. In my PUT hawkercentre edit route, upload the image to Imgur, and delete it from my local server:
 
