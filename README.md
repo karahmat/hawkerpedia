@@ -14,7 +14,7 @@ The whole web application is programmed with HTML, CSS and VanillaJS for the fro
 
 The backend follows the conventional Model-View-Controller structure. 
 
-JWT is used for authentication. 
+JWT was used for authentication. 
 
 ## User access
 There are three levels of user access:
